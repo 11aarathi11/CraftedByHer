@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraftedByHer</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+    }
+
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      color: #d42aaf;
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    
+
+    /* --- Pinterest-like layout --- */
+    .gallery {
+      column-count: 3;      /* like Pinterest columns */
+      column-gap: 1rem;
+      padding: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      display: inline-block;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin: 0 0 1rem;
+      width: 100%;
+      transition: transform 0.2s ease;
+      break-inside: avoid;   /* prevents cutting between columns */
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;  /* let height vary for Pinterest look */
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h3 {
+      margin: 0.5rem 0;
+      color: #d42aaf;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #fff;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* Responsive fix */
+    @media (max-width: 900px) {
+      .gallery { column-count: 2; }
+    }
+    @media (max-width: 600px) {
+      .gallery { column-count: 1; }
+    }
+    .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .overlay-content {
+    background: #fff;
+    width: 80%;
+    max-width: 900px;
+    height: 70%;
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .overlay-left {
+    flex: 1;
+    background: #f9f9f9;
+  }
+
+  .overlay-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .overlay-right {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .overlay-right h2 {
+    margin: 0 0 10px;
+    color:#d42aaf;
+  }
+
+  .overlay-right p {
+    flex-grow: 1;
+  }
+
+  .overlay-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #d42aaf;
+  }
+
+  .whatsapp-btn {
+    background: #25d366;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+  }
+  .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* smaller space above/below */
+}
+
+.blob-btn {
+  position: relative;
+  padding: 14px 40px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #d42aaf; /* matches site purple shade */
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.blob-btn:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid #d42aaf;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.blob-btn:after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 30px;
+  transition: all 0.3s 0.2s;
+  z-index: -2;
+}
+
+.blob-btn:hover {
+  color: #fff;
+}
+
+.blob-btn:hover:after {
+  inset: 0;
+}
+
+.blob-btn__inner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: #fff;
+}
+
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url('#goo');
+}
+
+.blob-btn__blob {
+  position: absolute;
+  top: 2px;
+  width: 25%;
+  height: 100%;
+  background: #d42aaf;
+  border-radius: 100%;
+  transform: translate3d(0,150%,0) scale(1.4);
+  transition: transform 0.45s;
+}
+
+.blob-btn__blob:nth-child(1) { left: 0%; transition-delay: 0s; }
+.blob-btn__blob:nth-child(2) { left: 30%; transition-delay: 0.1s; }
+.blob-btn__blob:nth-child(3) { left: 60%; transition-delay: 0.2s; }
+.blob-btn__blob:nth-child(4) { left: 90%; transition-delay: 0.3s; }
+
+.blob-btn:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.4);
+}
+.blob{
+    margin-left:280px;
+}
+/* Floating Button */
+/* Floating Button */
+#wishlist-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;   /* moved to right */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: #d42aaf;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: transform 0.2s;
+}
+
+#wishlist-float:hover {
+  transform: scale(1.1);
+}
+
+/* Overlay Background */
+#wishlist-overlay {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Overlay Content */
+.wishlist-content {
+  background: #fff;
+  padding: 20px;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 16px;
+  position: relative;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+/* Close Button */
+#close-wishlist {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Favorites Items Grid */
+.favorites-container .product-card {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin: 8px;
+  text-align: center;
+  width: 150px; /* smaller card */
+  display: inline-block;
+  vertical-align: top;
+}
+
+.favorites-container .product-card img {
+  width: 100px;   /* smaller image */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.favorites-container .remove-btn {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 3px 8px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.favorites-container .remove-btn:hover {
+  background: #e63950;
+}
+.search-bar {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#searchInput {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+  border-color: #d42aaf; /* pink highlight */
+  box-shadow: 0 0 8px rgba(212, 42, 175, 0.5);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="CraftedByHer Logo" style="height:50px; width:50px; border-radius:50%; object-fit:cover;">
+      <h1 style="margin:0; font-weight:600; color:#333;">
+        Crafted<span style="color:#d42aaf;">ByHer</span>
+      </h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contribute.html" style="color:#d42aaf; font-weight:600;">Contribute</a>
+    </nav>
+  </header>
+
+  <div class="search-bar">
+  <input type="text" id="searchInput" placeholder="🔍 Search products...">
+ </div>
+
+  <section class="gallery">
+    <!-- Default product cards -->
+    <div class="card">
+      <img src="Crochet Bag.jpeg" alt="Craft">
+      <div class="card-content">
+        <h3>Crochet Bag</h3>
+        <p>Made by Lakshmi – crafted with love during evenings ✨</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="necklace.jpeg" alt="Craft">
+      <div class="card-content">
+        <h3>Beaded Necklace</h3>
+        <p>Made by Anitha – inspired by temple jewelry tradition 🌺</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="kathakali painting.jpeg" alt="Craft">
+      <div class="card-content">
+        <h3>Mini Canvas Art</h3>
+        <p>Made by Revathi – a touch of colors from her hometown 🎨</p>
+      </div>
+    </div>
+  </section>
+  <div class="overlay" id="productOverlay">
+    <div class="overlay-content">
+      <div class="overlay-left">
+        <img id="overlayImg" src="" alt="">
+      </div>
+      <div class="overlay-right">
+        <div>
+          <h2 id="overlayTitle"></h2>
+          <p><strong>Owner:</strong> <span id="overlayOwner"></span></p>
+          <p><strong>Description:</strong> <span id="overlayDesc"></span></p>
+        </div>
+        <div class="overlay-bottom">
+  <span class="price" id="overlayPrice"></span>
+  <a id="overlayWhatsapp" href="#" target="_blank" class="whatsapp-btn">Chat on WhatsApp</a>
+</div>
+<button id="addToWishlist" style="margin-top:15px; padding:10px;   background:#d42aaf; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">
+  Add to Wishlist
+</button>
+
+      </div>
+    </div>
+    <span class="close-btn" onclick="closeOverlay()">&times;</span>
+  </div>
+  <div class="buttons blob">
+  <button onclick="location.href='home.html'" class="blob-btn">
+    Home
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+
+  <!-- Gooey SVG Filter -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix"
+          values="1 0 0 0 0  
+                  0 1 0 0 0  
+                  0 0 1 0 0  
+                  0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+</div>
+<!-- Floating Wishlist Button -->
+<button id="wishlist-float">🤍</button>
+
+<!-- Wishlist Overlay -->
+<div id="wishlist-overlay">
+  <div class="wishlist-content">
+    <span id="close-wishlist">&times;</span>
+    <h2>My Favorites 🩷</h2>
+    <div class="favorites-container">
+      <p>No favorites yet. Click 🩷 on products to save them!</p>
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <p>© 2025 CraftedByHer | Celebrating Women & Their Creations</p>
+  </footer>
+
+  <script>
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  let currentProduct = null;
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // ✅ Product overlay
+  function openOverlay(product) {
+    currentProduct = product;
+    document.getElementById("overlayImg").src = product.image;
+    document.getElementById("overlayTitle").textContent = product.product;
+    document.getElementById("overlayOwner").textContent = product.name;
+    document.getElementById("overlayDesc").textContent = product.story;
+    document.getElementById("overlayPrice").textContent = "₹" + (product.price || "500");
+    document.getElementById("overlayWhatsapp").href =
+      "https://wa.me/" + (product.phone || "919344495379") +
+      "?text=Hi! I'm interested in your product: " + product.product;
+    document.getElementById("productOverlay").style.display = "flex";
+  }
+
+  function closeOverlay() {
+    document.getElementById("productOverlay").style.display = "none";
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    let gallery = document.querySelector(".gallery");
+    let products = [];
+
+    // Grab default cards
+    let defaultCards = Array.from(gallery.querySelectorAll(".card"));
+    defaultCards.forEach(card => {
+      products.push({
+        image: card.querySelector("img").src,
+        product: card.querySelector("h3").textContent,
+        name: card.querySelector("p").textContent.split("–")[0].replace("Made by", "").trim(),
+        story: card.querySelector("p").textContent.split("–")[1]?.trim() || "",
+        price: 500,
+        phone: "919344495379"
+      });
+    });
+
+    // Add contributed products
+    let stored = JSON.parse(localStorage.getItem("products")) || [];
+    products = shuffle(products.concat(stored));
+
+    // Rebuild gallery
+    gallery.innerHTML = "";
+    products.forEach(p => {
+      let card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.product}">
+        <div class="card-content">
+          <h3>${p.product}</h3>
+          <p>Made by ${p.name} – ${p.story}</p>
+        </div>
+      `;
+      card.addEventListener("click", () => openOverlay(p));
+      gallery.appendChild(card);
+    });
+
+    // ✅ Search
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function () {
+      let filter = searchInput.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(product => {
+        let name = product.querySelector("h3").innerText.toLowerCase();
+        let desc = product.querySelector("p").innerText.toLowerCase();
+        product.style.display = (name.includes(filter) || desc.includes(filter)) ? "inline-block" : "none";
+      });
+    });
+  });
+
+  // ✅ Add to wishlist
+  document.getElementById("addToWishlist").addEventListener("click", () => {
+    if (!currentProduct) return;
+    if (!wishlist.some(item => item.product === currentProduct.product && item.name === currentProduct.name)) {
+      wishlist.push(currentProduct);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      alert("Added to wishlist 🩷");
+    } else {
+      alert("Already in wishlist!");
+    }
+  });
+
+  // ✅ Wishlist overlay
+  const wishlistFloat = document.getElementById("wishlist-float");
+  const wishlistOverlay = document.getElementById("wishlist-overlay");
+  const closeWishlist = document.getElementById("close-wishlist");
+  const favoritesContainer = document.querySelector(".favorites-container");
+
+  function renderWishlist() {
+    favoritesContainer.innerHTML = "";
+    if (wishlist.length === 0) {
+      favoritesContainer.innerHTML = `<p>No favorites yet. Click 🩷 on products to save them!</p>`;
+      return;
+    }
+    wishlist.forEach((item, index) => {
+      let card = document.createElement("div");
+      card.classList.add("product-card");
+      card.innerHTML = `
+        <img src="${item.image}">
+        <h4>${item.product}</h4>
+        <p>By ${item.name}</p>
+        <button class="remove-btn">Remove</button>
+      `;
+      // open overlay
+      card.querySelector("img").addEventListener("click", () => {
+        openOverlay(item);
+        wishlistOverlay.style.display = "none";
+      });
+      card.querySelector("h4").addEventListener("click", () => {
+        openOverlay(item);
+        wishlistOverlay.style.display = "none";
+      });
+      // remove
+      card.querySelector(".remove-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        wishlist.splice(index, 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        renderWishlist();
+      });
+      favoritesContainer.appendChild(card);
+    });
+  }
+
+  wishlistFloat.addEventListener("click", () => {
+    renderWishlist();
+    wishlistOverlay.style.display = "flex";
+  });
+
+  closeWishlist.addEventListener("click", () => {
+    wishlistOverlay.style.display = "none";
+  });
+
+  wishlistOverlay.addEventListener("click", (e) => {
+    if (e.target === wishlistOverlay) wishlistOverlay.style.display = "none";
+  });
+</script>
+
+
+
+
+
+</body>
+</html>

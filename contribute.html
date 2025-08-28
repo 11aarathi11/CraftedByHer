@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contribute - CraftedByHer</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #fdfdfd;
+      color: #333;
+    }
+
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+    }
+
+    header h1 {
+      color: #d42aaf;
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    form h2 {
+      color: #d42aaf;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: #d42aaf;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #b71d8f;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <img src="logo.png" alt="CraftedByHer Logo" style="height:50px; width:50px; border-radius:50%; object-fit:cover;">
+    <h1 style="margin:0; font-weight:600; color:#333;">
+      Crafted<span style="color:#d42aaf;">ByHer</span>
+    </h1>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contribute.html" style="color:#d42aaf; font-weight:600;">Contribute</a>
+  </nav>
+</header>
+
+<form id="contributionForm">
+  <h2>Share Your Handmade Creation ✨</h2>
+  
+  <label for="name">Your Name</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="product">Product Name</label>
+  <input type="text" id="product" name="product" required>
+
+  <label for="story">Story Behind It</label>
+  <textarea id="story" name="story" rows="4" required></textarea>
+
+  <label for="price">Product Price (₹)</label>
+  <input type="number" id="price" name="price" required>
+
+  <label for="phone">Your WhatsApp Number</label>
+  <input type="tel" id="phone" name="phone" placeholder="e.g. 9876543210" required>
+
+  <label for="image">Upload Product Image</label>
+  <input type="file" id="image" name="image" accept="image/*" required>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById("contributionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let product = document.getElementById("product").value;
+    let story = document.getElementById("story").value;
+    let price = document.getElementById("price").value;
+    let phone = document.getElementById("phone").value;
+    let imageFile = document.getElementById("image").files[0];
+
+    let reader = new FileReader();
+    reader.onload = function(event) {
+      let newProduct = {
+        name: name,
+        product: product,
+        story: story,
+        price: price,
+        phone: phone,
+        image: event.target.result
+      };
+
+      // Get existing products
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+      products.push(newProduct);
+
+      // Save back to localStorage
+      localStorage.setItem("products", JSON.stringify(products));
+
+      // Redirect to home
+      window.location.href = "home.html";
+    };
+    if (imageFile) {
+      reader.readAsDataURL(imageFile);
+    }
+  });
+</script>
+
+</body>
+</html>

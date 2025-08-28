@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | CraftedByHer</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #faf6fb;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .contact-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .contact-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #d42aaf;
+    }
+
+    .contact-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    /* Blob backgrounds */
+    .blob {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      background: #f5e0f3;
+      border-radius: 50%;
+      top: -90px;
+      left: -100px;
+      z-index: -1;
+    }
+
+    .blob2 {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: #fbe7f8;
+      border-radius: 50%;
+      bottom: -70px;
+      right: -20px;
+      z-index: -1;
+    }
+
+    /* Contact form */
+    form {
+      display: grid;
+      gap: 1.2rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.8rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #d42aaf;
+    }
+
+    button {
+      padding: 0.9rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      background: #d42aaf;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #b81e91;
+    }
+
+    /* Social links */
+    .socials {
+      margin-top: 2rem;
+    }
+
+    .socials a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+      color: #d42aaf;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      color: #b81e91;
+    }
+  </style>
+</head>
+<body>
+   <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="CraftedByHer Logo" style="height:50px; width:50px; border-radius:50%; object-fit:cover;">
+      <h1 style="margin:0; font-weight:600; color:#333;">
+        Crafted<span style="color:#d42aaf;">ByHer</span>
+      </h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contribute.html" style="color:#d42aaf; font-weight:600;">Contribute</a>
+    </nav>
+  </header>
+
+  <section class="contact-section">
+    <div class="blob"></div>
+    <div class="blob2"></div>
+
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you! Whether you’re an artisan, customer, or collaborator — drop us a message.</p>
+
+   <form id="contactForm">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+
+    <div class="socials">
+      <p>Or reach us directly:</p>
+      <a href="mailto:11aarathi11@gmail.com">📧 Email</a>
+      <a href="https://wa.me/919344495379" target="_blank">💬 WhatsApp</a>
+      <a href="https://www.instagram.com/aarathi_the_soul/">📸 Instagram</a>
+    </div>
+  </section>
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // stop form reload
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let msg = document.getElementById("message").value;
+
+    // WhatsApp API link
+    let whatsappUrl = `https://wa.me/919344495379?text=Hello, my name is ${name} (${email}). Message: ${msg}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    // ✅ Clear the form after submission
+    document.getElementById("contactForm").reset();
+  });
+</script>
+</body>
+</html>

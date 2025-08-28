@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | CraftedByHer</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #faf6fb;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .about-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .about-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #d42aaf;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Blob background */
+    .blob {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: #f5e0f3;
+      border-radius: 50%;
+      top: -100px;
+      left: -100px;
+      z-index: -1;
+    }
+
+    .blob2 {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: #fbe7f8;
+      border-radius: 50%;
+      bottom: -80px;
+      right: -80px;
+      z-index: -1;
+    }
+
+    /* Team section */
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .member {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .member img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 40%;
+      margin-bottom: 1rem;
+    }
+
+    .member h3 {
+      margin: 0.5rem 0;
+      color: #d42aaf;
+    }
+
+    .member p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="CraftedByHer Logo" style="height:50px; width:50px; border-radius:50%; object-fit:cover;">
+      <h1 style="margin:0; font-weight:600; color:#333;">
+        Crafted<span style="color:#d42aaf;">ByHer</span>
+      </h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contribute.html" style="color:#d42aaf; font-weight:600;">Contribute</a>
+    </nav>
+  </header>
+
+  <section class="about-section">
+    <div class="blob"></div>
+    <div class="blob2"></div>
+
+    <h1>About CraftedByHer</h1>
+    <p>
+      CraftedByHer is more than just a platform – it’s a movement.  
+      We celebrate women’s creativity by showcasing handmade treasures,  
+      from crochet to canvas, jewelry to art. Every piece carries love, culture, and a story waiting to be told.
+    </p>
+    <p>
+      Our mission is simple: to empower women artisans, give them visibility,  
+      and create a space where their creativity reaches the world.
+    </p>
+
+    <h2>Meet the Founders</h2>
+    <div class="team">
+      <div class="member">
+        <img src="person1.jpeg" alt="Founder 1">
+        <h3>Aarathi</h3>
+        <p>Co-founder, Vision & Design</p>
+      </div>
+      <div class="member">
+        <img src="person2.jpeg" alt="Founder 2">
+        <h3>Vaishnavi</h3>
+        <p>Co-founder, Tech & Development</p>
+      </div>
+      <div class="member">
+        <img src="person3.jpeg" alt="Founder 3">
+        <h3>Ashika</h3>
+        <p>Co-founder, Community & Outreach</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

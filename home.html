@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraftedByHer</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+    }
+
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #f4c2c2;
+      color: #fff;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome {
+      text-align: center;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h3 {
+      margin: 0.5rem 0;
+      color:#d42aaf;
+    }
+    .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* smaller space above/below */
+}
+
+.blob-btn {
+  position: relative;
+  padding: 14px 40px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #d42aaf; /* matches site purple shade */
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.blob-btn:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid #d42aaf;
+  border-radius: 30px;
+  z-index: 1;
+}
+
+.blob-btn:after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 30px;
+  transition: all 0.3s 0.2s;
+  z-index: -2;
+}
+
+.blob-btn:hover {
+  color: #fff;
+}
+
+.blob-btn:hover:after {
+  inset: 0;
+}
+
+.blob-btn__inner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: #fff;
+}
+
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url('#goo');
+}
+
+.blob-btn__blob {
+  position: absolute;
+  top: 2px;
+  width: 25%;
+  height: 100%;
+  background: #d42aaf;
+  border-radius: 100%;
+  transform: translate3d(0,150%,0) scale(1.4);
+  transition: transform 0.45s;
+}
+
+.blob-btn__blob:nth-child(1) { left: 0%; transition-delay: 0s; }
+.blob-btn__blob:nth-child(2) { left: 30%; transition-delay: 0.1s; }
+.blob-btn__blob:nth-child(3) { left: 60%; transition-delay: 0.2s; }
+.blob-btn__blob:nth-child(4) { left: 90%; transition-delay: 0.3s; }
+
+.blob-btn:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.4);
+}
+.blob{
+    margin-left:280px;
+}
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #fff;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    }
+    /* existing CSS here... */
+
+/* Tablet view */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr;  /* 2 columns instead of many */
+    gap: 10px;
+  }
+  .hero-text {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;  /* 1 column */
+  }
+  .product-card img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+  .wishlist-overlay {
+    width: 95%;
+    left: 2.5%;
+  }
+  h1, h2, p {
+    text-align: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="CraftedByHer Logo" style="height:50px; width:50px; border-radius:50%; object-fit:cover;">
+      <h1 style="margin:0; font-weight:600; color:#333;">
+        Crafted<span style="color:#d42aaf;">ByHer</span>
+      </h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="contribute.html" style="color:#d42aaf; font-weight:600;">Contribute</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Celebrate Handmade Creations by Women</h2>
+    <p>Showcasing talent, creativity, and stories that inspire 🌸</p>
+  </section>
+
+  
+
+
+  <section class="gallery">
+    <!-- Cards will load here -->
+  </section>
+   <div class="buttons blob">
+  <button onclick="location.href='gallery.html'" class="blob-btn">
+    Explore More
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+
+  <!-- Gooey SVG Filter -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix"
+          values="1 0 0 0 0  
+                  0 1 0 0 0  
+                  0 0 1 0 0  
+                  0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+</div>
+
+
+  <footer>
+    <p>© 2025 CraftedByHer | Celebrating Women & Their Creations</p>
+  </footer>
+
+  <script>
+  window.addEventListener("DOMContentLoaded", function(){
+    // Default sample products
+    let defaultProducts = [
+      { product:"Crochet Bag", name:"Lakshmi", story:"crafted with love during evenings ✨", image:"Crochet Bag.jpeg" },
+      { product:"Beaded Necklace", name:"Anitha", story:"inspired by temple jewelry tradition 🌺", image:"necklace.jpeg" },
+      { product:"Mini Canvas Art", name:"Revathi", story:"a touch of colors from her hometown 🎨", image:"kathakali painting.jpeg" }
+    ];
+
+    // Fetch contributed ones
+    let userProducts = JSON.parse(localStorage.getItem("products")) || [];
+
+    // Combine both
+    let allProducts = [...defaultProducts, ...userProducts];
+
+    // Shuffle + pick 3–4 random products
+    let shuffled = allProducts.sort(() => 0.5 - Math.random());
+    let selected = shuffled.slice(0, 4);
+
+    let gallery = document.querySelector(".gallery");
+
+    selected.forEach(p => {
+      let card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.product}">
+        <div class="card-content">
+          <h3>${p.product}</h3>
+          <p>Made by ${p.name} – ${p.story}</p>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+  });
+  </script>
+
+</body>
+</html>
